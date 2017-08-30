@@ -5,7 +5,7 @@
 //  Created by Vit Sembera (RD-EU) on 29/08/2017.
 //  Copyright © 2017 Apple Inc. All rights reserved.
 //
-
+/*
 import UIKit
 
 class MealTableViewController: UITableViewController {
@@ -111,3 +111,4 @@ class MealTableViewController: UITableViewController {
     }
     
 }
+*/
