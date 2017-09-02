@@ -118,7 +118,12 @@ import UIKit
             button.isSelected = index < rating
             
             // Set accessibility hint and value
-            let hintString: String? = (rating == index + 1) ? "Tap to reset the rating to zero." : nil
+            let hintString: String?
+            if rating == index + 1 {
+                hintString = "Tap to reset the rating to zero."
+            } else {
+                hintString = nil
+            }
 
             let valueString: String
             switch (rating) {

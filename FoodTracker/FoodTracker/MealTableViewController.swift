@@ -2,23 +2,23 @@
 //  MealTableViewController.swift
 //  FoodTracker
 //
-//  Created by Vit Sembera (RD-EU) on 29/08/2017.
-//  Copyright © 2017 Apple Inc. All rights reserved.
+//  Created by Jane Appleseed on 11/15/16.
+//  Copyright © 2016 Apple Inc. All rights reserved.
 //
 
 import UIKit
 
 class MealTableViewController: UITableViewController {
     
-    // MARK: Properties
+    //MARK: Properties
     
     var meals = [Meal]()
-        
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Load the sample data.
         loadSampleMeals()
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,37 +26,36 @@ class MealTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
+    //MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return meals.count
     }
 
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Table views are reused and should be dequeued using a cell identifier
         
+        // Table view cells are reused and should be dequeued using a cell identifier.
         let cellIdentifier = "MealTableViewCell"
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MealTableViewCell else {
-            fatalError("The dequeued cell is not an instance of MealTableViewCell")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MealTableViewCell  else {
+            fatalError("The dequeued cell is not an instance of MealTableViewCell.")
         }
-
-        // Fetches appropriate meal for the data source layout
         
+        // Fetches the appropriate meal for the data source layout.
         let meal = meals[indexPath.row]
         
         cell.nameLabel.text = meal.name
         cell.photoImageView.image = meal.photo
         cell.ratingControl.rating = meal.rating
-
+        
         return cell
     }
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -94,7 +93,7 @@ class MealTableViewController: UITableViewController {
     */
 
     /*
-    // MARK: - Navigation
+    //MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -103,26 +102,41 @@ class MealTableViewController: UITableViewController {
     }
     */
     
-    // MARK: Private Methods
+    //MARK: Private Methods
+    
+    @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? MealViewController, let meal = sourceViewController.meal {
+            let newIndexPath = IndexPath(row: meals.count, section: 0)
+            
+            // Add a new meal
+            
+            meals.append(meal)
+            
+            // Insert new row in the table
+            
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+    }
     
     private func loadSampleMeals() {
-        let photo1 = UIImage(named: "Meal1")
-        let photo2 = UIImage(named: "Meal2")
-        let photo3 = UIImage(named: "Meal3")
         
-        guard let meal1 = Meal(name: "Caprese salad", photo: photo1, rating: 4) else {
-            fatalError("Unable to instantiate Meal1")
+        let photo1 = UIImage(named: "meal1")
+        let photo2 = UIImage(named: "meal2")
+        let photo3 = UIImage(named: "meal3")
+
+        guard let meal1 = Meal(name: "Caprese Salad", photo: photo1, rating: 4) else {
+            fatalError("Unable to instantiate meal1")
         }
-        
+
         guard let meal2 = Meal(name: "Chicken and Potatoes", photo: photo2, rating: 5) else {
             fatalError("Unable to instantiate meal2")
         }
-        
+
         guard let meal3 = Meal(name: "Pasta with Meatballs", photo: photo3, rating: 3) else {
-            fatalError("Unable to instantiate meal3")
+            fatalError("Unable to instantiate meal2")
         }
-        
+
         meals += [meal1, meal2, meal3]
     }
-    
+
 }

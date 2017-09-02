@@ -2,36 +2,39 @@
 //  Meal.swift
 //  FoodTracker
 //
-//  Created by Vit Sembera (RD-EU) on 30/08/2017.
-//  Copyright © 2017 Apple Inc. All rights reserved.
+//  Created by Jane Appleseed on 11/10/16.
+//  Copyright © 2016 Apple Inc. All rights reserved.
 //
 
 import UIKit
 
+
 class Meal {
     
-    // MARK: Properties
+    //MARK: Properties
     
     var name: String
     var photo: UIImage?
     var rating: Int
     
-    // MARK: Initialization
+    //MARK: Initialization
     
     init?(name: String, photo: UIImage?, rating: Int) {
         
-        // Initialization should fail if there is no name or if the rating is out of range
-        
-        guard !name.isEmpty && (rating >= 0) && (rating <= 5) else {
+        // The name must not be empty
+        guard !name.isEmpty else {
             return nil
         }
 
-        // MARK: Initialize stored properties
+        // The rating must be between 0 and 5 inclusively
+        guard (rating >= 0) && (rating <= 5) else {
+            return nil
+        }
         
+        // Initialize stored properties.
         self.name = name
         self.photo = photo
         self.rating = rating
         
     }
-    
 }
